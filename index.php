@@ -94,6 +94,23 @@
         }
     }
 
+    var cacheLeftElement = []
+    var isFirstCall = true;
+
+    function formula(stringValue, columnResult, resultInput) {
+        cacheLeftElement.push(resultInput);
+
+        if (isFirstCall) {
+            isFirstCall = false
+            return ((parseFloat(stringValue) / columnResult) - 1) * 100;
+        } else {
+            var firstElement = cacheLeftElement[0]
+            cacheLeftElement.shift();
+            return ((parseFloat(stringValue) / parseFloat(firstElement.textContent.replace(',', '.'))) - 1) * 100;
+
+        }
+    }
+
     // TABELA DE BAIXO
     function calcularInput(stringValue, inputID){
         var splitResult = inputID.split('_');
@@ -104,7 +121,7 @@
             if (stringValue) {
                 var columnID = document.getElementById('resultado_' + lastValue);
                 var columnResult = parseFloat(columnID.textContent.replace(',', '.'));
-                var result = (parseFloat(stringValue) / columnResult) - 1;
+                var result = formula(parseFloat(stringValue), columnResult, resultInput)
         
                 resultInput.textContent = result.toFixed(3).replace('.', ',');
             } else {
