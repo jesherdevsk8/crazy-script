@@ -234,7 +234,7 @@
                 </td>
                 <td class="align-middle text-center trap-2">
                     <input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_40" value="0,00">
+                    <input type="hidden" id="hidden_input_40" value="3,795">
                 </td>
             </tr>
             <tr>
