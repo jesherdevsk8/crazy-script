@@ -94,20 +94,19 @@
         }
     }
 
-    var cacheHiddenInput = [];
-    var cacheHiddenInputID = [];
+    var cacheHiddenInput = []
+    var isFirstCall = true;
 
     function formula(stringValue, columnResult, resultInput, hiddenInput) {
-        var isCached = cacheHiddenInputID.includes(resultInput.id);
+        cacheHiddenInput.push(hiddenInput);
 
-        if (isCached && cacheHiddenInputID.length > 0) {
-            var lastElement = cacheHiddenInput[cacheHiddenInput.length - 1];
+        if (isFirstCall) {
+            isFirstCall = false
+            return ((stringValue / columnResult) - 1) * 100;
+        } else {
+            var lastElement = cacheHiddenInput[cacheHiddenInput.length - 1]
             cacheHiddenInput.shift();
             return ((stringValue / parseFloat(lastElement.value.replace(',', '.'))) - 1) * 100;
-        } else {
-            cacheHiddenInput.push(hiddenInput);
-            cacheHiddenInputID.push(resultInput.id);
-            return ((stringValue / columnResult) - 1) * 100;
         }
     }
 
@@ -222,7 +221,7 @@
                 <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor" disabled="true"></td>
                 <input type="hidden" id="hidden_input_30" value="2,233">
                 <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_35" value="1,970">
+                <input type="hidden" id="hidden_input_35" value="2,970">
                 <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true"></td>
                 <input type="hidden" id="hidden_input_40" value="0,00">
             </tr>
