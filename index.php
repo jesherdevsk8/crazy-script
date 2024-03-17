@@ -94,36 +94,38 @@
         }
     }
 
-    var cacheLeftElement = []
-    var isFirstCall = true;
+    var cacheHiddenInput = [];
+    var cacheHiddenInputID = [];
 
-    function formula(stringValue, columnResult, resultInput) {
-        cacheLeftElement.push(resultInput);
+    function formula(stringValue, columnResult, resultInput, hiddenInput) {
+        var isCached = cacheHiddenInputID.includes(resultInput.id);
 
-        if (isFirstCall) {
-            isFirstCall = false
-            return ((parseFloat(stringValue) / columnResult) - 1) * 100;
+        if (isCached && cacheHiddenInputID.length > 0) {
+            var lastElement = cacheHiddenInput[cacheHiddenInput.length - 1];
+            cacheHiddenInput.shift();
+            return ((stringValue / parseFloat(lastElement.value.replace(',', '.'))) - 1) * 100;
         } else {
-            var firstElement = cacheLeftElement[0]
-            cacheLeftElement.shift();
-            return ((parseFloat(stringValue) / parseFloat(firstElement.textContent.replace(',', '.'))) - 1) * 100;
-
+            cacheHiddenInput.push(hiddenInput);
+            cacheHiddenInputID.push(resultInput.id);
+            return ((stringValue / columnResult) - 1) * 100;
         }
     }
+
 
     // TABELA DE BAIXO
     function calcularInput(stringValue, inputID){
         var splitResult = inputID.split('_');
         var lastValue = splitResult[splitResult.length - 1];
         var resultInput = document.getElementById('result_input_' + lastValue);
+        var hiddenInput = document.getElementById('hidden_input_' + lastValue);
 
         if (resultInput) {
             if (stringValue) {
                 var columnID = document.getElementById('resultado_' + lastValue);
                 var columnResult = parseFloat(columnID.textContent.replace(',', '.'));
-                var result = formula(parseFloat(stringValue), columnResult, resultInput)
+                var result = formula(stringValue, columnResult, resultInput, hiddenInput)
         
-                resultInput.textContent = result.toFixed(3).replace('.', ',');
+                resultInput.textContent = result.toFixed(2).replace('.', ',');
             } else {
                 resultInput.textContent = 0;
             }
@@ -132,7 +134,7 @@
 
     function updateTableDown(inputID) {
         var inputDown = document.getElementById(inputID);
-        var inputValue = parseFloat(inputDown.value);
+        var inputValue = parseFloat(inputDown.value.replace(',', '.'));
 
         calcularInput(inputValue, inputID);
     }
@@ -146,6 +148,7 @@
         if (input) {
             input.addEventListener('change', function() {
                 updateTable(input.value);
+                toggleInputs(input.value);
             });
         }
 
@@ -156,11 +159,20 @@
             var input = document.getElementById(id);
             
             if (input) {
-                input.addEventListener('input', function() {
+                input.addEventListener('change', function() {
                     updateTableDown(id);
                 });
-            }
+            };
         });
+
+        // Função para habilitar ou desabilitar os inputs da tabela abaixo
+        function toggleInputs(value) {
+            var inputs = document.querySelectorAll('.inputValue');
+            inputs.forEach(function(input) {
+                input.disabled = !value;
+                input.value = '';
+            });
+        }
     });
 </script>
 
@@ -201,12 +213,18 @@
         </div>
         <table border="2" class="table">
             <tr>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_10" placeholder="Insira um valor"></td>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_20" placeholder="Insira um valor"></td>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_25" placeholder="Insira um valor"></td>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor"></td>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor"></td>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor"></td>
+                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_10" placeholder="Insira um valor" disabled="true"></td>
+                <input type="hidden" id="hidden_input_10">
+                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_20" placeholder="Insira um valor" disabled="true"></td>
+                <input type="hidden" id="hidden_input_20" value="1,692">
+                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_25" placeholder="Insira um valor" disabled="true"></td>
+                <input type="hidden" id="hidden_input_25" value="1,951">
+                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor" disabled="true"></td>
+                <input type="hidden" id="hidden_input_30" value="2,233">
+                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor" disabled="true"></td>
+                <input type="hidden" id="hidden_input_35" value="1,970">
+                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true"></td>
+                <input type="hidden" id="hidden_input_40" value="0,00">
             </tr>
             <tr>
                 <td id="result_input_10">0</td>
