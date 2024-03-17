@@ -212,18 +212,30 @@
         </div>
         <table border="2" class="table">
             <tr>
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_10" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_10">
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_20" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_20" value="1,692">
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_25" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_25" value="1,951">
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_30" value="2,233">
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_35" value="2,970">
-                <td class="align-middle text-center trap-2"><input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true"></td>
-                <input type="hidden" id="hidden_input_40" value="0,00">
+                <td class="align-middle text-center trap-2">
+                    <input type="text" class="inputValue" id="inputValue_10" placeholder="Insira um valor" disabled="true">
+                    <input type="hidden" id="hidden_input_10">
+                </td>
+                <td class="align-middle text-center trap-2">
+                    <input type="text" class="inputValue" id="inputValue_20" placeholder="Insira um valor" disabled="true">
+                    <input type="hidden" id="hidden_input_20" value="1,692">
+                </td>
+                <td class="align-middle text-center trap-2">
+                    <input type="text" class="inputValue" id="inputValue_25" placeholder="Insira um valor" disabled="true">
+                    <input type="hidden" id="hidden_input_25" value="1,951">
+                </td>
+                <td class="align-middle text-center trap-2">
+                    <input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor" disabled="true">
+                    <input type="hidden" id="hidden_input_30" value="2,233">
+                </td>
+                <td class="align-middle text-center trap-2">
+                    <input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor" disabled="true">
+                    <input type="hidden" id="hidden_input_35" value="2,970">
+                </td>
+                <td class="align-middle text-center trap-2">
+                    <input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true">
+                    <input type="hidden" id="hidden_input_40" value="0,00">
+                </td>
             </tr>
             <tr>
                 <td id="result_input_10">0</td>
