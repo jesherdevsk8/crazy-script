@@ -104,12 +104,34 @@
             isFirstCall = false
             return ((stringValue / columnResult) - 1) * 100;
         } else {
-            var lastElement = cacheHiddenInput[cacheHiddenInput.length - 1]
+            var formulaResult = ((stringValue / parseFloat(cacheHiddenInput[0].value)) - 1) * 100;
             cacheHiddenInput.shift();
-            return ((stringValue / parseFloat(lastElement.value.replace(',', '.'))) - 1) * 100;
+            
+            return formulaResult;
         }
     }
 
+    function projetado(stringValue, hiddenInput) {
+        var result;
+        
+        switch (hiddenInput.id) {
+            case 'hidden_input_10':
+            case 'hidden_input_20':
+            case 'hidden_input_25':
+                result = (stringValue * (17.5 / 100)) + stringValue;
+                break;
+            case 'hidden_input_30':
+                result = (stringValue * (35 / 100)) + stringValue;
+                break;
+            case 'hidden_input_35':
+                result = (stringValue * (38 / 100)) + stringValue;
+                break;
+            default:
+                result = 0;
+        }
+
+        return hiddenInput.value = result;
+    }
 
     // TABELA DE BAIXO
     function calcularInput(stringValue, inputID){
@@ -117,14 +139,14 @@
         var lastValue = splitResult[splitResult.length - 1];
         var resultInput = document.getElementById('result_input_' + lastValue);
         var hiddenInput = document.getElementById('hidden_input_' + lastValue);
+        hiddenInput.value = projetado(stringValue, hiddenInput);
 
         if (resultInput) {
             if (stringValue) {
                 var columnID = document.getElementById('resultado_' + lastValue);
                 var columnResult = parseFloat(columnID.textContent.replace(',', '.'));
-                var result = formula(stringValue, columnResult, resultInput, hiddenInput)
-        
-                resultInput.textContent = result.toFixed(2).replace('.', ',');
+
+                resultInput.textContent = formula(stringValue, columnResult, resultInput, hiddenInput).toFixed(2);
             } else {
                 resultInput.textContent = 0;
             }
@@ -218,23 +240,23 @@
                 </td>
                 <td class="align-middle text-center trap-2">
                     <input type="text" class="inputValue" id="inputValue_20" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_20" value="1,692">
+                    <input type="hidden" id="hidden_input_20">
                 </td>
                 <td class="align-middle text-center trap-2">
                     <input type="text" class="inputValue" id="inputValue_25" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_25" value="1,951">
+                    <input type="hidden" id="hidden_input_25">
                 </td>
                 <td class="align-middle text-center trap-2">
                     <input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_30" value="2,233">
+                    <input type="hidden" id="hidden_input_30">
                 </td>
                 <td class="align-middle text-center trap-2">
                     <input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_35" value="2,970">
+                    <input type="hidden" id="hidden_input_35">
                 </td>
                 <td class="align-middle text-center trap-2">
                     <input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_40" value="3,795">
+                    <input type="hidden" id="hidden_input_40">
                 </td>
             </tr>
             <tr>
