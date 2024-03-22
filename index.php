@@ -137,9 +137,9 @@
         var result =  ((stringValue / columnResult) - 1) * 100
         intermediate.textContent = result.toFixed(2);
 
-        if (result <= 7) {
+        if (result <= -7) {
             intermediate.style.color = 'green';
-        } else if (result === -6.85) {
+        } else if (result > -7) {
             intermediate.style.color = 'black';
         } else {
             intermediate.style.color = '';
@@ -161,13 +161,15 @@
                 var columnResult = parseFloat(columnID.textContent.replace(',', '.'));
                 var result = formula(stringValue, columnResult, resultInput, hiddenInput).toFixed(2);
                 resultInput.textContent = result;
-                if (result <= 7) {
+                
+                if (result <= -7) {
                     resultInput.style.color = 'green';
-                } else if (result === -6.85) {
+                } else if (result > -7) {
                     resultInput.style.color = 'black';
                 }else {
                     resultInput.style.color = '';
                 }
+                
                 intermediateCalc(stringValue, columnResult, intermediate);
             } else {
                 resultInput.textContent = 0;
