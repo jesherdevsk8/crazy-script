@@ -133,20 +133,42 @@
         return hiddenInput.value = result;
     }
 
+    function intermediateCalc(stringValue, columnResult, intermediate) {
+        var result =  ((stringValue / columnResult) - 1) * 100
+        intermediate.textContent = result.toFixed(2);
+
+        if (result <= 7) {
+            intermediate.style.color = 'green';
+        } else if (result === -6.85) {
+            intermediate.style.color = 'black';
+        } else {
+            intermediate.style.color = '';
+        }
+    }
+
     // TABELA DE BAIXO
     function calcularInput(stringValue, inputID){
         var splitResult = inputID.split('_');
         var lastValue = splitResult[splitResult.length - 1];
         var resultInput = document.getElementById('result_input_' + lastValue);
         var hiddenInput = document.getElementById('hidden_input_' + lastValue);
+        var intermediate = document.getElementById('intermediate_result' + lastValue);
         hiddenInput.value = projetado(stringValue, hiddenInput);
 
         if (resultInput) {
             if (stringValue) {
                 var columnID = document.getElementById('resultado_' + lastValue);
                 var columnResult = parseFloat(columnID.textContent.replace(',', '.'));
-
-                resultInput.textContent = formula(stringValue, columnResult, resultInput, hiddenInput).toFixed(2);
+                var result = formula(stringValue, columnResult, resultInput, hiddenInput).toFixed(2);
+                resultInput.textContent = result;
+                if (result <= 7) {
+                    resultInput.style.color = 'green';
+                } else if (result === -6.85) {
+                    resultInput.style.color = 'black';
+                }else {
+                    resultInput.style.color = '';
+                }
+                intermediateCalc(stringValue, columnResult, intermediate);
             } else {
                 resultInput.textContent = 0;
             }
@@ -196,80 +218,125 @@
         }
     });
 </script>
+<style>
+    .blue-header {
+        background-color: #4169E1;
+        color: white;
+    }
 
+    .inputValue {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .inputValueUp {
+        width: 20%;
+        padding: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .inputValue:focus {
+        border-color: dodgerblue;
+    }
+</style>
 </head>
 <body>
-    
     <div style="text-align:center" > 
         <?php echo "ABERTURA"; ?>
         <div class="form-group">
             <label for="exampleInputPassword1">Inicial:  </label>
-            <input required="required" min="1" max="10" type="text" class="form-control" id="inicial" name="inicial" placeholder="Insira um valor">
+            <input required="required" min="1" max="10" type="text" class="form-control inputValueUp" id="inicial" name="inicial">
         </div>
     </div>
+    <table class="table">
+        <tr>
+            <td class="blue-header align-middle text-center trap-2"><?php echo "10 min" ?></td>
+            <td class="blue-header align-middle text-center trap-2"><?php echo "20 min" ?></td>
+            <td class="blue-header align-middle text-center trap-2"><?php echo "25 min" ?></td>
+            <td class="blue-header align-middle text-center trap-2"><?php echo "30 min" ?></td>
+            <td class="blue-header align-middle text-center trap-2"><?php echo "35 min" ?></td>
+            <td class="blue-header align-middle text-center trap-2"><?php echo "40 min" ?></td>
+        </tr>
+        <tr>
+            <th id="resultado_10">0</th>
+            <td id="resultado_20">0</td>
+            <td id="resultado_25">0</td>
+            <td id="resultado_30">0</td>
+            <td id="resultado_35">0</td>
+            <td id="resultado_40">0</td>
+        </tr>
+    </table>
+    <?php echo "<br> <br>"; ?>
 
-    
-        <table border="2" class="table">
-            <tr>
-                <td class="align-middle text-center trap-2"><?php echo "10 min" ?></td>
-                <td class="align-middle text-center trap-2"><?php echo "20 min" ?></td>
-                <td class="align-middle text-center trap-2"><?php echo "25 min" ?></td>
-                <td class="align-middle text-center trap-2"><?php echo "30 min" ?></td>
-                <td class="align-middle text-center trap-2"><?php echo "35 min" ?></td>
-                <td class="align-middle text-center trap-2"><?php echo "40 min" ?></td>
-            </tr>
-            <tr>
-                <th id="resultado_10">0</th>
-                <td id="resultado_20">0</td>
-                <td id="resultado_25">0</td>
-                <td id="resultado_30">0</td>
-                <td id="resultado_35">0</td>
-                <td id="resultado_40">0</td>
-            </tr>
-        </table>
-        <?php echo "<br> <br>"; ?>
+    <div style="text-align:center" >
+        <?php echo "(Resultado Intermediario) "; ?>
+    </div>
+    <table class="table">
+        <tr>
+            <td id="intermediate_result10">0</td>
+            <td id="intermediate_result20">0</td>
+            <td id="intermediate_result25">0</td>
+            <td id="intermediate_result30">0</td>
+            <td id="intermediate_result35">0</td>
+            <td id="intermediate_result40">0</td>
+        </tr>
+    </table>
 
-        <div style="text-align:center" >
-            <?php echo "LIVE (Decorrer da partida) "; ?>
-        </div>
-        <table border="2" class="table">
-            <tr>
-                <td class="align-middle text-center trap-2">
-                    <input type="text" class="inputValue" id="inputValue_10" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_10">
-                </td>
-                <td class="align-middle text-center trap-2">
-                    <input type="text" class="inputValue" id="inputValue_20" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_20">
-                </td>
-                <td class="align-middle text-center trap-2">
-                    <input type="text" class="inputValue" id="inputValue_25" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_25">
-                </td>
-                <td class="align-middle text-center trap-2">
-                    <input type="text" class="inputValue" id="inputValue_30" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_30">
-                </td>
-                <td class="align-middle text-center trap-2">
-                    <input type="text" class="inputValue" id="inputValue_35" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_35">
-                </td>
-                <td class="align-middle text-center trap-2">
-                    <input type="text" class="inputValue" id="inputValue_40" placeholder="Insira um valor" disabled="true">
-                    <input type="hidden" id="hidden_input_40">
-                </td>
-            </tr>
-            <tr>
-                <td id="result_input_10">0</td>
-                <td id="result_input_20">0</td>
-                <td id="result_input_25">0</td>
-                <td id="result_input_30">0</td>
-                <td id="result_input_35">0</td>
-                <td id="result_input_40">0</td>
-            </tr>
-        </table>
+    <?php echo "<br> <br>"; ?>
 
-        <?php echo "<br> <br>"; ?>
+    <div style="text-align:center" >
+        <?php echo "LIVE (Decorrer da partida) "; ?>
+    </div>
+    <table class="table">
+        <tr>
+            <td class="blue-header align-middle text-center trap-2">
+                <input type="text" class="inputValue" id="inputValue_10" disabled="true">
+                <input type="hidden" id="hidden_input_10">
+            </td>
+            <td class="blue-header align-middle text-center trap-2">
+                <input type="text" class="inputValue" id="inputValue_20" disabled="true">
+                <input type="hidden" id="hidden_input_20">
+            </td>
+            <td class="blue-header align-middle text-center trap-2">
+                <input type="text" class="inputValue" id="inputValue_25" disabled="true">
+                <input type="hidden" id="hidden_input_25">
+            </td>
+            <td class="blue-header align-middle text-center trap-2">
+                <input type="text" class="inputValue" id="inputValue_30" disabled="true">
+                <input type="hidden" id="hidden_input_30">
+            </td>
+            <td class="blue-header align-middle text-center trap-2">
+                <input type="text" class="inputValue" id="inputValue_35" disabled="true">
+                <input type="hidden" id="hidden_input_35">
+            </td>
+            <td class="blue-header align-middle text-center trap-2">
+                <input type="text" class="inputValue" id="inputValue_40" disabled="true">
+                <input type="hidden" id="hidden_input_40">
+            </td>
+        </tr>
+        <tr>
+            <td id="result_input_10">0</td>
+            <td id="result_input_20">0</td>
+            <td id="result_input_25">0</td>
+            <td id="result_input_30">0</td>
+            <td id="result_input_35">0</td>
+            <td id="result_input_40">0</td>
+        </tr>
+    </table>
+
+    <?php echo "<br> <br>"; ?>
 </table>
 </body>
 </html>
