@@ -1,0 +1,60 @@
+td, th {
+  padding: .5em;
+  margin: 0;
+  /*border: 1px solid #ccc;*/
+  text-align: center;
+}
+
+th{
+  background-color: #EEE;
+}
+
+td{
+  font-weight:bold;
+  background-color: #EEE;
+}
+
+table{
+  width: 100%;
+  margin-bottom : .5em;
+  table-layout: fixed;
+  text-align: center;
+}
+
+.inputValue {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0px;
+}
+
+.blue-header {
+  background-color: #4169E1;
+  color: white;
+}
+
+.inputValue {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.inputValueUp {
+  width: 20%;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.inputValue:focus {
+  border-color: dodgerblue;
+}
