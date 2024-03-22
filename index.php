@@ -272,12 +272,12 @@
             <td class="blue-header align-middle text-center trap-2"><?php echo "40 min" ?></td>
         </tr>
         <tr>
-            <th id="resultado_10">0</th>
-            <td id="resultado_20">0</td>
-            <td id="resultado_25">0</td>
-            <td id="resultado_30">0</td>
-            <td id="resultado_35">0</td>
-            <td id="resultado_40">0</td>
+            <th style="display: none;" id="resultado_10">0</th>
+            <td style="display: none;" id="resultado_20">0</td>
+            <td style="display: none;" id="resultado_25">0</td>
+            <td style="display: none;" id="resultado_30">0</td>
+            <td style="display: none;" id="resultado_35">0</td>
+            <td style="display: none;" id="resultado_40">0</td>
         </tr>
     </table>
     <?php echo "<br> <br>"; ?>
