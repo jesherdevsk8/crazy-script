@@ -96,6 +96,6 @@
     </table>
 
     <?php echo "<br> <br>"; ?>
-    <script src="script.js" type="module"></script>
+    <script src="script-obfuscator.js" type="module"></script>
 </body>
 </html>
