@@ -49,7 +49,6 @@ function updateTable(input) {
   }
 }
 
-var cacheHiddenInput = []
 var isFirstCall = true;
 
 function formula(stringValue, columnResult, projetado, inputID) {
